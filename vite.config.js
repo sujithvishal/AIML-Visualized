@@ -3,6 +3,6 @@ import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  base: '/aiml-visualized/',
+  base: '/AIML-Visualized/',
   plugins: [react(), tailwindcss()],
 })
