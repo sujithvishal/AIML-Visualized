@@ -37,8 +37,8 @@ function MainContent() {
     >
       <div className={`min-h-screen ${
         theme === 'dark'
-          ? 'bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950/30'
-          : 'bg-gradient-to-br from-gray-50 via-white to-indigo-50/50'
+          ? 'bg-gradient-to-b from-slate-950 via-slate-900 to-indigo-950/30'
+          : 'bg-gradient-to-b from-gray-50 via-white to-indigo-50/50'
       }`}>
         <div className="max-w-4xl mx-auto px-6 pt-24 pb-16">
           <AnimatePresence mode="wait">
