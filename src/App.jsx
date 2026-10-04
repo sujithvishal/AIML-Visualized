@@ -62,7 +62,7 @@ function MainContent() {
       } ${sidebarOpen ? 'md:ml-64' : 'ml-0'}`}
     >
       <div>
-        <div className="max-w-4xl mx-auto px-6 pt-24 pb-16">
+        <div className="max-w-5xl mx-auto px-5 sm:px-8 lg:px-10 pt-24 pb-20">
           <AnimatePresence mode="wait">
             <motion.div
               key={topic}
