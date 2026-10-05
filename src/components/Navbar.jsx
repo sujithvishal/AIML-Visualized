@@ -27,53 +27,63 @@ export default function Navbar() {
           : 'bg-white/80 backdrop-blur-xl border-gray-200'
       }`}>
         {/* Left */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
           <button
             onClick={() => setSidebarOpen(o => !o)}
-            className={`p-2 rounded-lg transition-colors ${
+            className={`p-1.5 sm:p-2 rounded-lg transition-colors ${
               theme === 'dark' ? 'hover:bg-white/10 text-gray-400 hover:text-white' : 'hover:bg-gray-100 text-gray-500 hover:text-gray-900'
             }`}
+            aria-label="Toggle navigation menu"
           >
             {sidebarOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/30">
-              <Zap size={14} className="text-white" />
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/30 shrink-0">
+              <Zap size={13} className="text-white" />
             </div>
-            <span className={`font-semibold text-sm tracking-tight ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-              AI Learning Hub
+            <span className={`font-semibold text-xs sm:text-sm tracking-tight ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+              <span className="hidden sm:inline">AI Learning Hub</span>
+              <span className="sm:hidden font-bold">AI Hub</span>
             </span>
           </div>
         </div>
 
-        {/* Center Nav */}
-        <nav className="hidden md:flex items-center gap-1">
+        {/* Center Nav: Visible across all devices (Mobile, Tablet, Desktop) */}
+        <nav className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto no-scrollbar py-1 px-1">
           {NAV_ITEMS.map(item => (
             <button
               key={item.id}
               onClick={() => handleSectionClick(item)}
               disabled={!item.active}
-              className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 relative ${
+              className={`px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 relative shrink-0 ${
                 !item.active
-                  ? theme === 'dark' ? 'text-gray-600 cursor-not-allowed' : 'text-gray-400 cursor-not-allowed'
+                  ? theme === 'dark'
+                    ? 'text-gray-600 cursor-not-allowed hidden sm:inline-flex'
+                    : 'text-gray-400 cursor-not-allowed hidden sm:inline-flex'
                   : section === item.id
-                  ? theme === 'dark' ? 'text-white' : 'text-gray-900'
-                  : theme === 'dark' ? 'text-gray-400 hover:text-white hover:bg-white/5' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-100'
+                  ? theme === 'dark'
+                    ? 'text-white'
+                    : 'text-indigo-600'
+                  : theme === 'dark'
+                  ? 'text-gray-400 hover:text-white hover:bg-white/5'
+                  : 'text-gray-500 hover:text-gray-900 hover:bg-gray-100'
               }`}
             >
               {section === item.id && item.active && (
                 <motion.div
                   layoutId="nav-indicator"
                   className={`absolute inset-0 rounded-lg ${
-                    theme === 'dark' ? 'bg-white/10 border border-white/15' : 'bg-indigo-50 border border-indigo-200'
+                    theme === 'dark'
+                      ? 'bg-indigo-500/25 border border-indigo-500/40'
+                      : 'bg-indigo-100 border border-indigo-200'
                   }`}
                   transition={{ type: 'spring', bounce: 0.2, duration: 0.4 }}
                 />
               )}
-              <span className="relative z-10 flex items-center gap-1.5">
-                {item.label}
+              <span className="relative z-10 flex items-center gap-1">
+                <span>{item.label}</span>
                 {!item.active && (
-                  <span className={`text-xs px-1.5 py-0.5 rounded-full ${
+                  <span className={`text-[10px] px-1 py-0.2 rounded-full ${
                     theme === 'dark' ? 'bg-gray-800 text-gray-500' : 'bg-gray-100 text-gray-400'
                   }`}>Soon</span>
                 )}

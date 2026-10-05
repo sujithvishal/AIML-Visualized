@@ -1,0 +1,8 @@
+{
+  "name": "AiMl-Visualized",
+  "description": "Interactive visualizations and deep dives into Machine Learning and Deep Neural Network algorithms.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

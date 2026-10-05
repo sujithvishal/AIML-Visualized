@@ -6,6 +6,12 @@ export const topics = {
     { id: 'logistic-regression', label: 'Logistic Regression', icon: '🔀' },
     { id: 'decision-tree', label: 'Decision Trees', icon: '🌳' },
     { id: 'knn', label: 'k-Nearest Neighbors', icon: '📍' },
+    { id: 'svm', label: 'Support Vector Machines', icon: '⚔️' },
+    { id: 'bayesian-learning', label: 'Bayesian Learning', icon: '🎲' },
+    { id: 'ensemble-learning', label: 'Ensemble Learning & Bagging', icon: '🌲' },
+    { id: 'boosting', label: 'Ensemble Learning – II (Boosting)', icon: '🚀' },
+    { id: 'clustering', label: 'Unsupervised Learning (Clustering)', icon: '🔮' },
+    { id: 'model-evaluation', label: 'Model Evaluation & Responsible AI', icon: '⚖️' },
   ],
   dnn: [
     { id: 'what-is-dnn', label: 'What is DNN?', icon: '🕸️' },

@@ -5,7 +5,7 @@ import { useApp } from '../context/useApp'
 import { topics } from '../context/topics'
 
 export default function Sidebar() {
-  const { theme, section, topic, setTopic, sidebarOpen, progress } = useApp()
+  const { theme, section, setSection, topic, setTopic, sidebarOpen, setSidebarOpen, progress } = useApp()
   const [search, setSearch] = useState('')
 
   const currentTopics = topics[section] || []
@@ -16,20 +16,73 @@ export default function Sidebar() {
   const sectionLabel = section === 'ml' ? 'Machine Learning' : 'Deep Neural Networks'
   const totalDone = currentTopics.filter(t => progress[t.id]).length
 
+  const handleTopicSelect = (id) => {
+    setTopic(id)
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      setSidebarOpen(false)
+    }
+  }
+
   return (
     <AnimatePresence>
       {sidebarOpen && (
-        <motion.aside
-          initial={{ x: -280, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          exit={{ x: -280, opacity: 0 }}
-          transition={{ type: 'spring', bounce: 0.1, duration: 0.4 }}
-          className={`fixed left-0 top-16 bottom-0 w-64 z-40 flex flex-col border-r ${
-            theme === 'dark'
-              ? 'bg-slate-950/95 border-white/10'
-              : 'bg-white/95 border-gray-200'
-          } backdrop-blur-xl overflow-hidden`}
-        >
+        <>
+          {/* Mobile backdrop overlay */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => setSidebarOpen(false)}
+            className="fixed inset-0 top-16 bg-black/60 z-30 md:hidden backdrop-blur-xs"
+          />
+          <motion.aside
+            initial={{ x: -280, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -280, opacity: 0 }}
+            transition={{ type: 'spring', bounce: 0.1, duration: 0.4 }}
+            className={`fixed left-0 top-16 bottom-0 w-64 z-40 flex flex-col border-r ${
+              theme === 'dark'
+                ? 'bg-slate-950/95 border-white/10'
+                : 'bg-white/95 border-gray-200'
+            } backdrop-blur-xl overflow-hidden`}
+          >
+          {/* Section Switcher Tabs */}
+          <div className="p-3 border-b border-inherit">
+            <div className={`p-1 rounded-xl flex gap-1 ${
+              theme === 'dark' ? 'bg-slate-900 border border-white/5' : 'bg-gray-100 border border-gray-200'
+            }`}>
+              <button
+                onClick={() => {
+                  setSection('ml')
+                  setTopic(topics.ml[0].id)
+                }}
+                className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+                  section === 'ml'
+                    ? 'bg-indigo-500 text-white shadow-sm'
+                    : theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'
+                }`}
+              >
+                <span>🧠</span>
+                <span>ML ({topics.ml.length})</span>
+              </button>
+              <button
+                onClick={() => {
+                  setSection('dnn')
+                  setTopic(topics.dnn[0].id)
+                }}
+                className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+                  section === 'dnn'
+                    ? 'bg-purple-500 text-white shadow-sm'
+                    : theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'
+                }`}
+              >
+                <span>🕸️</span>
+                <span>DNN ({topics.dnn.length})</span>
+              </button>
+            </div>
+          </div>
+
           {/* Section header */}
           <div className="p-4 border-b border-inherit">
             <div className="flex items-center justify-between mb-3">
@@ -79,7 +132,7 @@ export default function Sidebar() {
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.05 }}
-                  onClick={() => setTopic(t.id)}
+                  onClick={() => handleTopicSelect(t.id)}
                   className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm mb-0.5 transition-all duration-150 group ${
                     active
                       ? theme === 'dark'
@@ -111,6 +164,7 @@ export default function Sidebar() {
             </p>
           </div>
         </motion.aside>
+        </>
       )}
     </AnimatePresence>
   )

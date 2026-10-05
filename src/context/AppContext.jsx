@@ -6,7 +6,12 @@ export function AppProvider({ children }) {
   const [theme, setTheme] = useState('dark')
   const [section, setSection] = useState('ml')
   const [topic, setTopic] = useState('what-is-ml')
-  const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [sidebarOpen, setSidebarOpen] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth >= 768 // collapsed on mobile (<768px), open on tablet/desktop (>=768px)
+    }
+    return true
+  })
   const [searchOpen, setSearchOpen] = useState(false)
   const [progress, setProgress] = useState(() => {
     try { return JSON.parse(localStorage.getItem('aiml-progress') || '{}') } catch { return {} }
@@ -17,6 +22,23 @@ export function AppProvider({ children }) {
   const [badges, setBadges] = useState(() => {
     try { return JSON.parse(localStorage.getItem('aiml-badges') || '[]') } catch { return [] }
   })
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    let prevWidth = window.innerWidth
+    const handleResize = () => {
+      const curWidth = window.innerWidth
+      // Automatically adapt when crossing the mobile/tablet threshold (768px)
+      if (prevWidth < 768 && curWidth >= 768) {
+        setSidebarOpen(true)
+      } else if (prevWidth >= 768 && curWidth < 768) {
+        setSidebarOpen(false)
+      }
+      prevWidth = curWidth
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark')

@@ -13,6 +13,12 @@ import LinearRegression from './pages/ml/LinearRegression'
 import LogisticRegression from './pages/ml/LogisticRegression'
 import DecisionTree from './pages/ml/DecisionTree'
 import KNN from './pages/ml/KNN'
+import SVM from './pages/ml/SVM'
+import BayesianLearning from './pages/ml/BayesianLearning'
+import EnsembleLearning from './pages/ml/EnsembleLearning'
+import Boosting from './pages/ml/Boosting'
+import Clustering from './pages/ml/Clustering'
+import ModelEvaluation from './pages/ml/ModelEvaluation'
 // DNN pages
 import WhatIsDNN from './pages/dnn/WhatIsDNN'
 import Perceptron from './pages/dnn/Perceptron'
@@ -35,6 +41,12 @@ const PAGE_MAP = {
   'logistic-regression': LogisticRegression,
   'decision-tree': DecisionTree,
   'knn': KNN,
+  'svm': SVM,
+  'bayesian-learning': BayesianLearning,
+  'ensemble-learning': EnsembleLearning,
+  'boosting': Boosting,
+  'clustering': Clustering,
+  'model-evaluation': ModelEvaluation,
   'what-is-dnn': WhatIsDNN,
   'perceptron': Perceptron,
   'mlp': MLP,
